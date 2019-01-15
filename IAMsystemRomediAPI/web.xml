@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="3.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+ 
+ 
+ 
+  
+   <!-- HTML representation-->
+         
+  <servlet>
+      <servlet-name>GetHTMLdrugsDetected</servlet-name>
+      <servlet-class>fr.erias.IAMsystemRomediAPI.servlet.GetHTMLdrugsDetected</servlet-class>
+   </servlet>
+
+ 
+   <servlet-mapping>
+      <servlet-name>GetHTMLdrugsDetected</servlet-name>
+      <url-pattern>/GetHTMLdrugsDetected</url-pattern>
+   </servlet-mapping>
+ 
+ 
+ 
+    <!-- JSON representation -->
+
+   <servlet>
+      <servlet-name>GetJSONdrugsDetected</servlet-name>
+      <servlet-class>fr.erias.IAMsystemRomediAPI.servlet.GetJSONdrugsDetected</servlet-class>
+   </servlet>
+ 
+ 
+   <servlet-mapping>
+      <servlet-name>GetJSONdrugsDetected</servlet-name>
+      <url-pattern>/GetJSONdrugsDetected</url-pattern>
+   </servlet-mapping>
+ 
+     <!-- Detect a drug and precise the type -->
+   <servlet>
+      <servlet-name>GetJSONdrugDetectedByType</servlet-name>
+      <servlet-class>fr.erias.IAMsystemRomediAPI.servlet.GetJSONdrugDetectedByType</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>GetJSONdrugDetectedByType</servlet-name>
+      <url-pattern>/GetJSONdrugDetectedByType</url-pattern>
+   </servlet-mapping>
+ 
+ 
+ 
+ 
+  <!-- typos between 2 words -->
+   <servlet>
+      <servlet-name>GetTypoProb</servlet-name>
+      <servlet-class>fr.erias.IAMsystemRomediAPI.servlet.GetTypoProb</servlet-class>
+   </servlet>
+ 
+ 
+   <servlet-mapping>
+      <servlet-name>GetTypoProb</servlet-name>
+      <url-pattern>/GetTypoProb</url-pattern>
+   </servlet-mapping>
+ 
+ 
+ 
+ 
+</web-app>

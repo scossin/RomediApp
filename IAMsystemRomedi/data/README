@@ -1,0 +1,3 @@
+A logistic regression to predict if a word is a typo or not. 
+GoldStandard: 3438 examples manually classified. 
+The output of the logistic regression is hardcoded in a Java Class

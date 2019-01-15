@@ -1,0 +1,2 @@
+uriExcluded: a list of Romedi URIs (ingredients) to ignore (eau, huile d'olive...)
+See termino2CSV.R to create CSV files of the terminology

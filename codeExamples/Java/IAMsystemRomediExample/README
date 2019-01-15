@@ -1,0 +1,7 @@
+# Java example to detect drug
+You need to install dependencies with "mvn clean install" before using this example.
+
+See the Java class example. It will create a "IndexUniqueTokens" folder (a Lucene index for typo detection) and a "typoFile.csv" that stores typoDetection. 
+To improve the RomediTerminology you can send me this CSV file. 
+
+Delete logback.xml in others projects to modify the logs. 

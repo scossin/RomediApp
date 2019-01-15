@@ -1,0 +1,11 @@
+com.bigdata.namespace.ROM.lex.com.bigdata.btree.BTree.branchingFactor=400
+com.bigdata.rdf.store.AbstractTripleStore.textIndex=true
+com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.NoAxioms
+com.bigdata.rdf.sail.isolatableIndices=false
+com.bigdata.rdf.sail.truthMaintenance=false
+com.bigdata.rdf.store.AbstractTripleStore.justify=false
+com.bigdata.rdf.sail.namespace=ROMEDI
+com.bigdata.rdf.store.AbstractTripleStore.quads=false
+com.bigdata.namespace.ROM.spo.com.bigdata.btree.BTree.branchingFactor=1024
+com.bigdata.rdf.store.AbstractTripleStore.geoSpatial=false
+com.bigdata.rdf.store.AbstractTripleStore.statementIdentifiers=false

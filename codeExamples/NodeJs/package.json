@@ -1,0 +1,8 @@
+{
+	"name": "RomediAPIexample",
+	"version": "0.0.1",
+	"description": "test the RomediAPI",
+	"dependencies": {
+		"request": " ~2.87.0"
+	}
+}
