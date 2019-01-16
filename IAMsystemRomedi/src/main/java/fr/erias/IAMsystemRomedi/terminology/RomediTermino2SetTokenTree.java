@@ -1,6 +1,10 @@
 package fr.erias.IAMsystemRomedi.terminology;
 
 import java.util.HashSet;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.erias.IAMsystem.load.Loader;
 import fr.erias.IAMsystem.normalizer.Stopwords;
 import fr.erias.IAMsystem.tokenizer.TokenizerNormalizer;
@@ -18,6 +22,7 @@ import fr.erias.romedi.terminology.RomediTerminology;
  */
 
 public class RomediTermino2SetTokenTree {
+	final static Logger logger = LoggerFactory.getLogger(RomediTermino2SetTokenTree.class);
 	
 	/**
 	 * Transform a {@link RomediTerminology} to a tree datastructure ({@link SetTokenTree})
@@ -32,8 +37,8 @@ public class RomediTermino2SetTokenTree {
 			String label = romediInstance.getPrefLabel();
 			String libNormal = tokenizerNormalizer.normalizeLabel(label);
 			String code = romediInstance.getIRI();
-			HashSet<TokenTree> altTokenTrees = getAltTokenTree(romediInstance, stopwordsRomedi);
-			HashSet<TokenTree> hiddenTokenTrees = getHiddenTokenTree(romediInstance, stopwordsRomedi);
+			HashSet<TokenTree> altTokenTrees = getAltTokenTree(tokenizerNormalizer, romediInstance, stopwordsRomedi);
+			HashSet<TokenTree> hiddenTokenTrees = getHiddenTokenTree(tokenizerNormalizer, romediInstance, stopwordsRomedi);
 			setTokenTree.addTokenTrees(altTokenTrees);
 			setTokenTree.addTokenTrees(hiddenTokenTrees);
 			setTokenTree.addTokenTree(getTokenTree(libNormal, code, stopwordsRomedi));
@@ -44,14 +49,16 @@ public class RomediTermino2SetTokenTree {
 	
 	/**
 	 * Create a {@link TokenTree} for each alternative label and add it to a HashSet
+	 * @param tokenizerNormalizer {@link TokenizerNormalizer} to normalize each label
 	 * @param romediInstance {@link RomediInstance}
 	 * @param stopwordsRomedi {@link Stopwords} 
 	 * @return An hashset of TokenTree containing alternative labels
 	 */
-	private static HashSet<TokenTree> getAltTokenTree(RomediInstance romediInstance, Stopwords stopwordsRomedi){
+	private static HashSet<TokenTree> getAltTokenTree(TokenizerNormalizer tokenizerNormalizer, RomediInstance romediInstance, Stopwords stopwordsRomedi){
 		 HashSet<TokenTree> altTokenTrees = new HashSet<TokenTree>();
 		 for (String altLabel : romediInstance.getAltLabels()) {
-			 TokenTree tokenTree = getTokenTree(altLabel, romediInstance.getIRI(), stopwordsRomedi);
+			 String libNormal = tokenizerNormalizer.normalizeLabel(altLabel);
+			 TokenTree tokenTree = getTokenTree(libNormal, romediInstance.getIRI(), stopwordsRomedi);
 			 if (tokenTree != null) {
 				 altTokenTrees.add(tokenTree);
 			 }
@@ -61,14 +68,16 @@ public class RomediTermino2SetTokenTree {
 	
 	/**
 	 * Create a {@link TokenTree} for each hidden label (typo) and add it to a HashSet
+	 * @param tokenizerNormalizer {@link TokenizerNormalizer} to normalize each label
 	 * @param romediInstance {@link RomediInstance}
 	 * @param stopwordsRomedi {@link Stopwords} 
 	 * @return An hashset of TokenTree containing hidden labels
 	 */
-	private static HashSet<TokenTree> getHiddenTokenTree(RomediInstance romediInstance, Stopwords stopwordsRomedi){
+	private static HashSet<TokenTree> getHiddenTokenTree(TokenizerNormalizer tokenizerNormalizer,RomediInstance romediInstance, Stopwords stopwordsRomedi){
 		 HashSet<TokenTree> altTokenTrees = new HashSet<TokenTree>();
 		 for (String hiddenLabel : romediInstance.getHiddenLabels()) {
-			 TokenTree tokenTree = getTokenTree(hiddenLabel, romediInstance.getIRI(), stopwordsRomedi);
+			 String libNormal = tokenizerNormalizer.normalizeLabel(hiddenLabel);
+			 TokenTree tokenTree = getTokenTree(libNormal, romediInstance.getIRI(), stopwordsRomedi);
 			 if (tokenTree != null) {
 				 altTokenTrees.add(tokenTree);
 			 }
