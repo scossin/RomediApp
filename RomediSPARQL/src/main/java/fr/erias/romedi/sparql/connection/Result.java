@@ -124,7 +124,7 @@ public class Result {
 	 */
 	private IRI getIRI(Value value) {
 		IRI iri = null; 
-		try{
+		try {
 			iri = (IRI) value;
 		} catch (ClassCastException e){
 			logger.info("error");
@@ -136,7 +136,7 @@ public class Result {
 			HashSet<RomediInstance> romediInstances,
 			RomediType romediType) {
 		// When relation is 1 - 1 between CIS and romediType, :
-		if (!RomediType.isOne2oneCIS(romediType)) {
+		if (!RomediType.isOne2Many(romediType)) {
 			JSONArray jsonArrayRomediType = new JSONArray();
 			TreeSet<RomediInstance> romediInstancesSingleType = getInstances(romediInstances, romediType);
 			Iterator<RomediInstance> iter = romediInstancesSingleType.iterator();

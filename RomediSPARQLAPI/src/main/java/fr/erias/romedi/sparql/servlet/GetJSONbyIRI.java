@@ -69,7 +69,7 @@ public class GetJSONbyIRI extends HttpServlet {
 	}
 	
 	public static void main(String[] args) throws UnknownRomediURI {
-		String uri = "INdku2cefkijqo9ntgknbkh0t88n79jmel";
+		String uri = "INqv8icrj0cuu3370modvklp0rl0gk1al5";
 		RomediIRI romediIRI = new RomediIRI(uri);
 		ProcessIRI.request.searchIRI(romediIRI);
 		JSONObject jsonObject = ProcessIRI.request.getResultJson();

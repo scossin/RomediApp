@@ -194,8 +194,9 @@ public class SparqlQueries {
 				"  ?PIN a romedi:PIN.\n" + 
 				"  ?PINdosage a romedi:PINdosage .\n" + 
 				"  ?IN a romedi:IN .\n" + 
-				"   ?INdosage  a romedi:INdosage .\n" + 
-				" ?CIP13 a romedi:CIP13 .\n" +
+				"  ?INdosage  a romedi:INdosage .\n" + 
+				"  ?CIP13 a romedi:CIP13 .\n" +
+				"  ?DrugClass a romedi:DrugClass .\n" +
 				"  \n" + 
 				"  # links\n" + 
 				" ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
@@ -207,7 +208,8 @@ public class SparqlQueries {
 				"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" + 
 				"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
 				"    ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
-				"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 	
+				"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 
+				"    ?CIS romedi:CIShasDrugClass ?DrugClass .\n" +
 				"  \n" + 
 				"  # selection\n" + 
 				"       Values ?" + romediInstance.getType().toString() + "{<"+romediInstance.getIRI()+">}\n" + 
@@ -264,7 +266,7 @@ public class SparqlQueries {
 		}
 		IRIs = sb.toString();
 		String templateRequest = "PREFIX romedi:<http://www.romedi.fr/romedi/>\n" + 
-				"SELECT ?ATC7 ?ATC5 ?ATC4 ?CIP13 ?CIS ?BNdosage ?BN ?PINdosage ?PIN ?INdosage ?IN\n" + 
+				"SELECT ?ATC7 ?ATC5 ?ATC4 ?CIP13 ?CIS ?BNdosage ?BN ?PINdosage ?PIN ?INdosage ?IN ?DrugClass\n" + 
 				"WHERE { \n" + 
 				"  # type\n" + 
 				"       ?CIS a romedi:CIS .\n" + 
@@ -275,6 +277,7 @@ public class SparqlQueries {
 				"  ?IN a romedi:IN .\n" + 
 				"  ?INdosage  a romedi:INdosage .\n" + 
 				"  ?CIP13 a romedi:CIP13 .\n" +
+				"  ?DrugClass a romedi:DrugClass .\n" +
 				"  \n" + 
 				"  # links\n" +
 				" ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
@@ -282,11 +285,12 @@ public class SparqlQueries {
 				"      ?CIS romedi:CIShasPINdosage ?PINdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasINdosage ?INdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasPIN ?PIN .\n" + 
-				"       ?INdosage romedi:INdosagehasIN ?IN .\n" + 
+				"      ?INdosage romedi:INdosagehasIN ?IN .\n" + 
 				"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" +
 				"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
 				"    ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
-				"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 			
+				"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 
+				"    ?CIS romedi:CIShasDrugClass ?DrugClass .\n" +
 				"  \n" + 
 				"  # selection\n" + 
 				"       Values ?CIS {" + IRIs + "}\n" + 

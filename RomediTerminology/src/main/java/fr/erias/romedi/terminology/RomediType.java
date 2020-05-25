@@ -25,6 +25,7 @@ public enum RomediType {
 		MOLECULE,
 		Dosage,
 		UCD13,
+		DrugClass,
 		UNKNOWN; // case of an error
 	
 	/**
@@ -40,7 +41,7 @@ public enum RomediType {
 	 * Relation with a CIS (drug): one2one or one to many
 	 * Ex : a CIS (drug) can have multiple ingredients but only one ATC code or one Brand Name
 	 */
-	public static RomediType[] one2many = {RomediType.PINdosage, RomediType.INdosage,
+	public static RomediType[] one2ManyTypes = {RomediType.PINdosage, RomediType.INdosage,
 			RomediType.IN, RomediType.PIN}; 
 	
 	/**
@@ -49,9 +50,9 @@ public enum RomediType {
 	 * @param type A romedi type
 	 * @return true if the relation is one2one
 	 */
-	public static boolean isOne2oneCIS(RomediType type) {
-		for (int i = 0; i<one2many.length; i++) {
-			if (type == one2many[i]) {
+	public static boolean isOne2Many(RomediType type) {
+		for (int i = 0; i<one2ManyTypes.length; i++) {
+			if (type == one2ManyTypes[i]) {
 				//System.out.println("merged type : " + type );
 				return(true);
 			}

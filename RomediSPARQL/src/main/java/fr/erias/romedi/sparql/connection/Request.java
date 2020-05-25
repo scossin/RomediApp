@@ -66,7 +66,8 @@ public class Request {
 			//RomediType.CIP13,
 			RomediType.ATC7, 
 			RomediType.ATC5, 
-			RomediType.ATC4}; 
+			RomediType.ATC4,
+			RomediType.DrugClass}; 
 
 	/**
 	 * @param connection  Connection to SPARQL endpoint

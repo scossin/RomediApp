@@ -17,7 +17,8 @@ public enum RomediLinks {
 	INdosagehasIN,
 	CIShasATC7,
 	CIShasATC5,
-	CIShasATC4; 
+	CIShasATC4,
+	CIShasDrugClass; 
 	
 	public RomediIRI getRomediIRI() {
 		RomediIRI romediIRI = new RomediIRI(this.toString());
