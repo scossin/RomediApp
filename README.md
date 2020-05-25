@@ -59,7 +59,7 @@ If you have installed it on a server, the database is only accessible by the loc
 
 ```
 mvn clean package
-docker cp RomediSPARQLAPI/target/RomediSPARQLAPI-0.0.1-SNAPSHOT.war tomcatRomedi:/usr/local/tomcat/webapps/
+docker cp RomediSPARQLAPI/target/RomediSPARQLAPI-0.1.0.war tomcatRomedi:/usr/local/tomcat/webapps/
 docker cp IAMsystemRomediAPI/target/IAMsystemRomediAPI-0.0.1.war tomcatRomedi:/usr/local/tomcat/webapps/
 ```
 
