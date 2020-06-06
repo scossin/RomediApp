@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<web-app version="3.0"
-  xmlns="http://java.sun.com/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
- 
-   <!-- To save as "hello\WEB-INF\web.xml" -->
- 
-  <!-- all links -->
-  <servlet>
-    <servlet-name>GetJSONbyIRI</servlet-name>
-    <servlet-class>fr.erias.romedi.sparql.servlet.GetJSONbyIRI</servlet-class>
-  </servlet>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-  <servlet-mapping>
-    <servlet-name>GetJSONbyIRI</servlet-name>
-    <url-pattern>/GetJSONbyIRI</url-pattern>
-  </servlet-mapping>
-  
-  
-  
-    <!-- get the label and the type of a IRI -->
-  <servlet>
-    <servlet-name>GetJSONlabelsByIRI</servlet-name>
-    <servlet-class>fr.erias.romedi.sparql.servlet.GetJSONlabelsByIRI</servlet-class>
-  </servlet>
-   <servlet-mapping>
-    <servlet-name>GetJSONlabelsByIRI</servlet-name>
-    <url-pattern>/GetJSONlabelsByIRI</url-pattern>
-  </servlet-mapping>
-  
-      <!-- get the hash of a name -->
-  <servlet>
-    <servlet-name>GetHashName</servlet-name>
-    <servlet-class>fr.erias.romedi.sparql.servlet.GetHashName</servlet-class>
-  </servlet>
-   <servlet-mapping>
-    <servlet-name>GetHashName</servlet-name>
-    <url-pattern>/GetHashName</url-pattern>
-  </servlet-mapping>
-  
+	<!-- To save as "hello\WEB-INF\web.xml" -->
+
+	<!-- all links -->
+	<servlet>
+		<servlet-name>GetJSONbyIRI</servlet-name>
+		<servlet-class>fr.erias.romedi.sparql.servlet.GetJSONbyIRI</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GetJSONbyIRI</servlet-name>
+		<url-pattern>/GetJSONbyIRI</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- get the label and the type of a IRI -->
+	<servlet>
+		<servlet-name>GetJSONlabelsByIRI</servlet-name>
+		<servlet-class>fr.erias.romedi.sparql.servlet.GetJSONlabelsByIRI</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetJSONlabelsByIRI</servlet-name>
+		<url-pattern>/GetJSONlabelsByIRI</url-pattern>
+	</servlet-mapping>
+
+	<!-- get the hash of a name -->
+	<servlet>
+		<servlet-name>GetHashName</servlet-name>
+		<servlet-class>fr.erias.romedi.sparql.servlet.GetHashName</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetHashName</servlet-name>
+		<url-pattern>/GetHashName</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- get the hash of a name -->
+	<servlet>
+		<servlet-name>GetCIS</servlet-name>
+		<servlet-class>fr.erias.romedi.sparql.servlet.GetCIS</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetCIS</servlet-name>
+		<url-pattern>/GetCIS</url-pattern>
+	</servlet-mapping>
+
 </web-app>

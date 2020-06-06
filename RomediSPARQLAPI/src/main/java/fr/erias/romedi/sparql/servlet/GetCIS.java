@@ -2,7 +2,6 @@ package fr.erias.romedi.sparql.servlet;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Collection;
 import java.util.HashSet;
 
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.erias.romedi.sparql.connection.ResultLinks;
 import fr.erias.romedi.terminology.RomediIRI;
 import fr.erias.romedi.terminology.RomediInstance;
 import fr.erias.romedi.terminology.RomediInstanceCIS;
@@ -27,11 +25,11 @@ import fr.erias.romedi.terminology.UnknownRomediURI;
  * @author Cossin Sebastien
  *
  */
-public class GetJSONbyIRI extends HttpServlet {
-	final static Logger logger = LoggerFactory.getLogger(GetJSONbyIRI.class);
+public class GetCIS extends HttpServlet {
+	final static Logger logger = LoggerFactory.getLogger(GetCIS.class);
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.info("asking a JSON by IRI");
+		logger.info("asking a list of CIS by IRI");
 		resp.setContentType("application/json");
 		resp.setHeader("Content-Disposition","attachment;filename=ViewRomedi.json");
 		String iri = req.getParameter("IRI");
@@ -47,25 +45,18 @@ public class GetJSONbyIRI extends HttpServlet {
 		RomediIRI romediIRI = new RomediIRI(iri);
 
 		// send request
-		logger.info("searching URI..." + iri);
+		logger.info("searching CIS..." + iri);
 		try {
-			// get the RomediInstance from a IRI
-			RomediInstance romediInstance = ProcessIRI.request.getRomediInstance(romediIRI); 
-			
-			// retrieve all CIS connected to this RomediInstance
+			RomediInstance romediInstance = ProcessIRI.request.getRomediInstance(romediIRI);
 			HashSet<RomediInstanceCIS> romediInstancesCIS = ProcessIRI.request.getCisIRI(romediInstance);
-			
-			// Retrieve all links to all CIS connected to this RomediInstance
-			Collection<ResultLinks> resultsLinks = ProcessIRI.request.getResultsLinks(romediInstancesCIS);
+			logger.info("sending JSON result");
+			// sending results : 
 			JSONObject jsonObject = new JSONObject();
-			
-			// links
-			jsonObject.put("CIS", JSONoutput.getJSONlinks(resultsLinks));
-			
-			// Information about the URI requested
+			jsonObject.put("CIS", JSONoutput.getJSONcis(romediInstancesCIS));
 			jsonObject.put("request",romediInstance.getJSONObject());
 			resp.setStatus(200);
 			sendJSON(resp, jsonObject);
+			logger.info("the end");
 			return;
 		} catch (UnknownRomediURI e) {
 			String msg = "the URI was not found. It may exist but the current configuration will not display it";
@@ -82,17 +73,15 @@ public class GetJSONbyIRI extends HttpServlet {
 		os.close();
 	}
 	
-	// test
 	public static void main(String[] args) throws UnknownRomediURI {
-		String uri = "IN7310nlprjlh2sb3t0apdjfvtk6u0ifp3";
-		RomediIRI romediIRI = new RomediIRI(uri);
+		String iri = "INqv8icrj0cuu3370modvklp0rl0gk1al5";
+		RomediIRI romediIRI = new RomediIRI(iri);
 		RomediInstance romediInstance = ProcessIRI.request.getRomediInstance(romediIRI);
 		HashSet<RomediInstanceCIS> romediInstancesCIS = ProcessIRI.request.getCisIRI(romediInstance);
 		logger.info("sending JSON result");
 		// sending results : 
-		Collection<ResultLinks> resultsLinks = ProcessIRI.request.getResultsLinks(romediInstancesCIS);
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("CIS", JSONoutput.getJSONlinks(resultsLinks));
+		jsonObject.put("CIS", JSONoutput.getJSONcis(romediInstancesCIS));
 		jsonObject.put("request",romediInstance.getJSONObject());
 		System.out.println(jsonObject.toString());
 	}
