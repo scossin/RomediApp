@@ -199,17 +199,18 @@ public class SparqlQueries {
 				"  ?DrugClass a romedi:DrugClass .\n" +
 				"  \n" + 
 				"  # links\n" + 
-				" ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
+				" 	   ?CIS romedi:isCommercialized  \"1\"^^xsd:boolean . \n" +
+				" 	   ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
 				"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
 				"      ?CIS romedi:CIShasPINdosage ?PINdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasINdosage ?INdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasPIN ?PIN .\n" + 
-				"       ?INdosage romedi:INdosagehasIN ?IN .\n" + 
+				"      ?INdosage romedi:INdosagehasIN ?IN .\n" + 
 				"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" + 
-				"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
-				"    ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
-				"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 
-				"    ?CIS romedi:CIShasDrugClass ?DrugClass .\n" +
+				"      ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
+				"      ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
+				"      ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 
+				"      ?CIS romedi:CIShasDrugClass ?DrugClass .\n" +
 				"  \n" + 
 				"  # selection\n" + 
 				"       Values ?" + romediInstance.getType().toString() + "{<"+romediInstance.getIRI()+">}\n" + 
@@ -280,17 +281,18 @@ public class SparqlQueries {
 				"  ?DrugClass a romedi:DrugClass .\n" +
 				"  \n" + 
 				"  # links\n" +
-				" ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
+				"      ?CIS romedi:isCommercialized  \"1\"^^xsd:boolean . \n" +
+				"      ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
 				"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
 				"      ?CIS romedi:CIShasPINdosage ?PINdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasINdosage ?INdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasPIN ?PIN .\n" + 
 				"      ?INdosage romedi:INdosagehasIN ?IN .\n" + 
 				"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" +
-				"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
-				"    ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
-				"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 
-				"    ?CIS romedi:CIShasDrugClass ?DrugClass .\n" +
+				"      ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
+				"      ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
+				"      ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 
+				"      ?CIS romedi:CIShasDrugClass ?DrugClass .\n" +
 				"  \n" + 
 				"  # selection\n" + 
 				"       Values ?CIS {" + IRIs + "}\n" + 
