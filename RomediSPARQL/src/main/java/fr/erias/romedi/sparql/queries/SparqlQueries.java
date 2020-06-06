@@ -47,7 +47,7 @@ public class SparqlQueries {
 	
 	/**
 	 * Retrieve hidden labels
-	 * @param romediTypes @{link RomediType}
+	 * @param romediTypes {@link RomediType}
 	 * @return a SPARQL query to retrieve hidden labels
 	 */
 	public static String getHiddenLabel(RomediType[] romediTypes) {
@@ -73,7 +73,7 @@ public class SparqlQueries {
 	
 	/**
 	 * Retrieve alternative lables
-	 * @param romediTypes @{link RomediType}
+	 * @param romediTypes {@link RomediType}
 	 * @return a SPARQL query to retrieve alternative labels
 	 */
 	public static String getAltLabel(RomediType[] romediTypes) {

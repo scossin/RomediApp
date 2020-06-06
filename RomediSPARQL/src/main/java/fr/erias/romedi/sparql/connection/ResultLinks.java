@@ -57,8 +57,8 @@ public class ResultLinks {
 	/**
 	 * Add row result of a SPARQLquery to this CIS
 	 * @param set a new BindingSet of a SPARQLquery result (a row)
-	 * @param romediTerminology 
-	 * @param outputType
+	 * @param romediTerminology {@link RomediTerminology} to retrieve Romedi Instances
+	 * @param outputType an array of RomediTypes (must be in the SPARQL query) 
 	 */
 	public void addSet(BindingSet set, RomediTerminology romediTerminology, RomediType[] outputType) {
 		RomediInstance romediInstance = null;
