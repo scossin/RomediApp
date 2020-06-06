@@ -3,6 +3,7 @@ package fr.erias.romedi.sparql.queries;
 import java.util.HashSet;
 
 import fr.erias.romedi.terminology.RomediInstance;
+import fr.erias.romedi.terminology.RomediInstanceCIS;
 import fr.erias.romedi.terminology.RomediType;
 
 
@@ -44,6 +45,11 @@ public class SparqlQueries {
 		return(query);
 	}
 	
+	/**
+	 * Retrieve hidden labels
+	 * @param romediTypes @{link RomediType}
+	 * @return a SPARQL query to retrieve hidden labels
+	 */
 	public static String getHiddenLabel(RomediType[] romediTypes) {
 		StringBuilder sb = new StringBuilder();
 		for (RomediType romediType : romediTypes) {
@@ -65,6 +71,11 @@ public class SparqlQueries {
 		return(query);
 	}
 	
+	/**
+	 * Retrieve alternative lables
+	 * @param romediTypes @{link RomediType}
+	 * @return a SPARQL query to retrieve alternative labels
+	 */
 	public static String getAltLabel(RomediType[] romediTypes) {
 		StringBuilder sb = new StringBuilder();
 		for (RomediType romediType : romediTypes) {
@@ -87,120 +98,29 @@ public class SparqlQueries {
 	}
 	
 	/**
-	 * Retrieve BN and BNdosage
-	 */
-	public static final String queryStringBNdosageBNlabels = "PREFIX romedi:<http://www.romedi.fr/romedi/>\n" + 
-			"SELECT ?instance ?type ?label\n" + 
-			"WHERE { \n" + 
-			"  # type\n" + 
-			"       ?instance a ?type ;\n" + 
-			"                   rdfs:label ?label.\n" + 
-			"\n" + 
-			"  # selection\n" + 
-			"       Values ?type {romedi:BN romedi:BNdosage} \n" + 
-			"      }";
-	
-	
-	
-	
-	/***************************************** ATC link **************************************************/
-	
-	/**
-	 * Retrieve all connection BN-ATC
-	 */
-	public static final String bnATC = "PREFIX romedi:<http://www.romedi.fr/romedi/>\n" + 
-			"SELECT ?BN ?ATC7 \n" + 
-			"WHERE { \n" + 
-			"  # type\n" +
-			"  " +
-			"       ?CIS a romedi:CIS .\n" + 
-			"      ?BNdosage a romedi:BNdosage . \n" + 
-			"       ?BN a romedi:BN . \n" + 
-			"  \n" + 
-			"  # links\n" + 
-			"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
-			"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" + 
-			"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 	
-			"      }\n" + 
-			"\n" + 
-			"ORDER BY DESC(?CIS)";
-	
-	
-	/**
-	 * Retrieve all connection BNdosage-ATC
-	 */
-	public static final String bndosageATC = "PREFIX romedi:<http://www.romedi.fr/romedi/>\n" + 
-			"SELECT ?BNdosage ?ATC7 \n" + 
-			"WHERE { \n" + 
-			"  # type\n" +
-			"  " +
-			"       ?CIS a romedi:CIS .\n" + 
-			"      ?BNdosage a romedi:BNdosage . \n" + 
-			"       ?BN a romedi:BN . \n" + 
-			"  \n" + 
-			"  # links\n" + 
-			"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
-			"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" + 
-			"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 	
-			"      }\n" + 
-			"\n" + 
-			"ORDER BY DESC(?CIS)";
-	
-	/**
-	 * Retrieve all connection IN-ATC
-	 */
-	public static final String inATC = "PREFIX romedi:<http://www.romedi.fr/romedi/>\n" + 
-			"SELECT ?ATC7 ?IN \n" + 
-			"WHERE { \n" + 
-			"  # type\n" +
-			"       ?CIS a romedi:CIS .\n" + 
-			"      ?BNdosage a romedi:BNdosage . \n" + 
-			"       ?BN a romedi:BN . \n" + 
-			"  ?PIN a romedi:PIN.\n" + 
-			"  ?PINdosage a romedi:PINdosage .\n" + 
-			"  ?IN a romedi:IN .\n" + 
-			"   ?INdosage  a romedi:INdosage .\n" + 
-			" ?CIP13 a romedi:CIP13 .\n" +
-			"  \n" + 
-			"  # links\n" + 
-			" ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
-			"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
-			"      ?CIS romedi:CIShasPINdosage ?PINdosage .\n" + 
-			"      ?PINdosage romedi:PINdosagehasINdosage ?INdosage .\n" + 
-			"      ?PINdosage romedi:PINdosagehasPIN ?PIN .\n" + 
-			"       ?INdosage romedi:INdosagehasIN ?IN .\n" + 
-			"      ?BNdosage romedi:BNdosagehasBN ?BN .\n" + 
-			"    ?CIS romedi:CIShasATC7 ?ATC7 .\n" + 
-			"    ?CIS romedi:CIShasATC5 ?ATC5 .\n" + 
-			"    ?CIS romedi:CIShasATC4 ?ATC4 .\n" + 	
-			"  \n}";
-	
-	
-	
-	/**
 	 * Retrieve all nodes linked to a IRI
 	 * @param romediInstance a {@link RomediInstance}
 	 * @return a SPARQL query
 	 */
 	public static String getInitialRequest(RomediInstance romediInstance) {
 		String templateRequest = "PREFIX romedi:<http://www.romedi.fr/romedi/>\n" + 
-				"SELECT ?CIS \n" + 
+				"SELECT distinct ?CIS ?label ?isCommercialized \n" + 
 				"WHERE { \n" + 
 				"  # type\n" +
-				"  " +
-				"       ?CIS a romedi:CIS .\n" + 
+				"      ?CIS a romedi:CIS .\n" + 
 				"      ?BNdosage a romedi:BNdosage . \n" + 
-				"       ?BN a romedi:BN . \n" + 
-				"  ?PIN a romedi:PIN.\n" + 
-				"  ?PINdosage a romedi:PINdosage .\n" + 
-				"  ?IN a romedi:IN .\n" + 
-				"  ?INdosage  a romedi:INdosage .\n" + 
-				"  ?CIP13 a romedi:CIP13 .\n" +
-				"  ?DrugClass a romedi:DrugClass .\n" +
+				"      ?BN a romedi:BN . \n" + 
+				"  	   ?PIN a romedi:PIN.\n" + 
+				"  	   ?PINdosage a romedi:PINdosage .\n" + 
+				"      ?IN a romedi:IN .\n" + 
+				"      ?INdosage  a romedi:INdosage .\n" + 
+				"      ?CIP13 a romedi:CIP13 .\n" +
+				"      ?DrugClass a romedi:DrugClass .\n" +
 				"  \n" + 
 				"  # links\n" + 
-				" 	   ?CIS romedi:isCommercialized  \"1\"^^xsd:boolean . \n" +
-				" 	   ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
+			    " 	   ?CIS romedi:isCommercialized  ?isCommercialized . \n" +
+				"      ?CIS rdfs:label ?label                          . \n" +
+			    " 	   ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
 				"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
 				"      ?CIS romedi:CIShasPINdosage ?PINdosage .\n" + 
 				"      ?PINdosage romedi:PINdosagehasINdosage ?INdosage .\n" + 
@@ -252,11 +172,11 @@ public class SparqlQueries {
 	
 	
 	/**
-	 * The second request : retrieve all node linked to all CIS retrieved by the first request
+	 * Retrieve all node linked to all CIS retrieved by the first request
 	 * @param romediInstancesCIS a Set of {@link RomediInstance}
-	 * @return a new SPARQL query
+	 * @return a SPARQL query
 	 */
-	public static String getCISRequest(HashSet<RomediInstance> romediInstancesCIS) {
+	public static String getCISRequest(HashSet<RomediInstanceCIS> romediInstancesCIS) {
 		String IRIs = null;
 		StringBuilder sb = new StringBuilder();
 		for (RomediInstance romediInstanceCIS : romediInstancesCIS) {
@@ -271,17 +191,16 @@ public class SparqlQueries {
 				"WHERE { \n" + 
 				"  # type\n" + 
 				"       ?CIS a romedi:CIS .\n" + 
-				"      ?BNdosage a romedi:BNdosage . \n" + 
+				"       ?BNdosage a romedi:BNdosage . \n" + 
 				"       ?BN a romedi:BN . \n" + 
-				"  ?PIN a romedi:PIN.\n" + 
-				"  ?PINdosage a romedi:PINdosage .\n" + 
-				"  ?IN a romedi:IN .\n" + 
-				"  ?INdosage  a romedi:INdosage .\n" + 
-				"  ?CIP13 a romedi:CIP13 .\n" +
-				"  ?DrugClass a romedi:DrugClass .\n" +
+				"  		?PIN a romedi:PIN.\n" + 
+				"  		?PINdosage a romedi:PINdosage .\n" + 
+				"  		?IN a romedi:IN .\n" + 
+				"  		?INdosage  a romedi:INdosage .\n" + 
+				"  		?CIP13 a romedi:CIP13 .\n" +
+				"  		?DrugClass a romedi:DrugClass .\n" +
 				"  \n" + 
 				"  # links\n" +
-				"      ?CIS romedi:isCommercialized  \"1\"^^xsd:boolean . \n" +
 				"      ?CIS romedi:CIShasCIP13 ?CIP13 .\n" + 
 				"      ?CIS romedi:CIShasBNdosage ?BNdosage . \n" + 
 				"      ?CIS romedi:CIShasPINdosage ?PINdosage .\n" + 
