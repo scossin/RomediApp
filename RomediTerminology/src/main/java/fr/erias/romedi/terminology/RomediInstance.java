@@ -2,6 +2,7 @@ package fr.erias.romedi.terminology;
 
 import java.util.HashSet;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -15,32 +16,32 @@ public class RomediInstance implements Comparable<RomediInstance> {
 	/**
 	 * Alternative labels ; ex : acide ascorbique = vitamine c
 	 */
-	private HashSet<String> altLabels = new HashSet<String>();
+	protected HashSet<String> altLabels = new HashSet<String>();
 	
 	/**
 	 * Hidden labels ; ex : typos
 	 */
-	private HashSet<String> hiddenLabels = new HashSet<String>();
+	protected HashSet<String> hiddenLabels = new HashSet<String>();
 
 	/**
 	 * Escitalopram
 	 */
-	private String prefLabel;
+	protected String prefLabel;
 
 	/**
 	 * escitalopram
 	 */
-	private String normalizedLabel;
+	protected String normalizedLabel;
 
 	/**
 	 * BN, IN...
 	 */
-	private RomediType romediType;
+	protected RomediType romediType;
 
 	/**
 	 * substance200204
 	 */
-	private RomediIRI romediIRI;
+	protected RomediIRI romediIRI;
 
 	/**
 	 * Create a representation of a romedi instance 
@@ -76,6 +77,10 @@ public class RomediInstance implements Comparable<RomediInstance> {
 		return prefLabel;
 	}
 
+	/**
+	 * Set the pref label
+	 * @param label the pref label
+	 */
 	public void setPrefLabel(String label) {
 		this.prefLabel = label;
 	}
@@ -120,8 +125,24 @@ public class RomediInstance implements Comparable<RomediInstance> {
 		this.normalizedLabel = normalizedLabel;
 	}
 
+	/**
+	 * Retrieve the alternative labels 
+	 * @return
+	 */
 	public HashSet<String> getAltLabels() {
 		return altLabels;
+	}
+	
+	/**
+	 * Retrieve the alternative labels in a JSONArray
+	 * @return
+	 */
+	public JSONArray getAltLabelsArrayJson() {
+		JSONArray jsonArray = new JSONArray();
+		for (String altLabel : altLabels) {
+			jsonArray.put(altLabel);
+		}
+		return(jsonArray);
 	}
 
 	/**
@@ -154,6 +175,7 @@ public class RomediInstance implements Comparable<RomediInstance> {
 		outputObject.put("localName", romediIRI.getLocalName());
 		outputObject.put("uri", romediIRI.getIRIstring());
 		outputObject.put("label", label);
+		outputObject.put("altLabels", this.getAltLabelsArrayJson());
 		outputObject.put("type", romediType.toString());
 		return(outputObject);
 	}
