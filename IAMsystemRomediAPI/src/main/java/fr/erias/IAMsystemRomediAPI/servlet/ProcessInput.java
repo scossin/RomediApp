@@ -91,7 +91,7 @@ public class ProcessInput {
 			logger.info("trying to create a new detectDrug instance");
 			// load the terminology from a SparqlEndpoint : 
 			
-			RomediType[] romediTypes = {RomediType.BN, RomediType.IN, RomediType.PIN, RomediType.BNdosage};
+			RomediType[] romediTypes = {RomediType.BN, RomediType.IN, RomediType.PIN, RomediType.BNdosage, RomediType.DrugClass};
 			detectDrugByType = new DetectDrugByType(romediTypes);
 			
 			RomediTerminologySPARQL romediTerminologySPARQL = new RomediTerminologySPARQL(ConfigEndpoint.chosenEndpoint, Request.outputType);

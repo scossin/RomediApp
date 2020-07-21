@@ -102,8 +102,8 @@ public class GetJSONdrugDetectedByType extends HttpServlet implements SingleThre
 	}
 
 	public static void main(String[] args) throws ProcessSentenceException, InvalidArraysLength, UnfoundTokenInSentence, IOException, ParseException {
-		DetectDrug detectDrug = ProcessInput.detectDrugByType.getDetectDrug(RomediType.BN);
-		String outputString = ProcessInput.getJSON(detectDrug, "escitalopram");
+		DetectDrug detectDrug = ProcessInput.detectDrugByType.getDetectDrug(RomediType.DrugClass);
+		String outputString = ProcessInput.getJSON(detectDrug, "statine");
 		System.out.println(outputString);
 	}
 }
